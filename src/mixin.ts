@@ -13,7 +13,7 @@ const buildRow = (id, data) => ({
 })
 
 
-const updateType = (list, id, data) => {
+const updateType = (list: RowData[], id: string, data) => {
   const index = list.findIndex(item => item.id === id)
   if (index>=0) {
     list.splice(
