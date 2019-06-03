@@ -1,0 +1,28 @@
+{
+  "name": "vue-jsonld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "demo": "vue-cli-service serve ./demo/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mingjiat/vue-jsonld.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mingjiat/vue-jsonld/issues"
+  },
+  "homepage": "https://github.com/mingjiat/vue-jsonld#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^3.8.0",
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
