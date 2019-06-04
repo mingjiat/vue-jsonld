@@ -6,25 +6,34 @@
     </p>
     <button @click="changeTitle"> chang title</button>
     <p>{{$jsonld}}</p>
-    <demo />
+    <component1 />
+    <hr/>
+    <button @click="toggleComponent">toggle component2</button>
+    <component2 v-if="shouldShowComponent2" />
   </div>
 </template>
 
 <script>
-  import demo from './component1.vue'
+  import component1 from './component1.vue'
+  import component2 from './component2.vue'
 
   export default {
     data() {
       return {
-        title: 'demo website'
+        title: 'demo website',
+        shouldShowComponent2: true
       }
     },
     components: {
-      demo
+      component1,
+      component2
     },
     methods: {
       changeTitle() {
         this.title = 'test'
+      },
+      toggleComponent() {
+        this.shouldShowComponent2 = !this.shouldShowComponent2
       }
     },
     jsonld() {

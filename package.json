@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "demo": "vue-cli-service serve ./demo/index.js"
+    "demo": "vue-cli-service serve ./demo/index.js",
+    "demo-router": "vue-cli-service serve ./demo/router.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
     "@vue/cli-service": "^3.8.0",
     "ts-loader": "^6.0.1",
     "typescript": "^3.4.5",
+    "vue-router": "^3.0.6",
     "vue-template-compiler": "^2.6.10"
   }
 }
