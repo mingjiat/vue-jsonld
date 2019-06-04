@@ -2,17 +2,17 @@ import {isFunction} from "./utils/is";
 import {ensuredPush, ensureIsObject} from "./utils/ensure";
 import uid from "./utils/uuid";
 import { triggerHeadUpdate } from "./client";
+import { OPTION_NAME, COMPUTED_NAME } from "./constant";
 
-
-const optionName = 'jsonld'
-const computedName = '$jsonld'
+const optionName = OPTION_NAME
+const computedName = COMPUTED_NAME
 
 const buildRow = (id, data) => ({
  id,
  data
 })
 
-const updateType = (list: RowData[], id: string, data) => {
+const updateType = (list: RowData[], id: string, data, isServer: boolean) => {
   const index = list.findIndex(item => item.id === id)
   if (index>=0) {
     list.splice(
@@ -23,10 +23,12 @@ const updateType = (list: RowData[], id: string, data) => {
   } else {
     list.push(buildRow(id, data))
   }
-  triggerHeadUpdate(list)
+  if (!isServer) {
+    triggerHeadUpdate(list)
+  }
 }
 
-const removeType = (list: RowData[], id: string) => {
+const removeType = (list: RowData[], id: string, isServer: boolean) => {
   const index = list.findIndex(item => item.id === id)
   if (index>=0) {
     list.splice(
@@ -34,7 +36,9 @@ const removeType = (list: RowData[], id: string) => {
       1,
     )
   }
-  triggerHeadUpdate(list)
+  if (!isServer) {
+    triggerHeadUpdate(list)
+  }
 }
 
 export default function createMixin(Vue, options) {
@@ -42,6 +46,7 @@ export default function createMixin(Vue, options) {
     beforeCreate() {
       const $root = this.$root
       const options = this.$options
+      const isServer = this.$isServer
       const jsonldValue = options[optionName]
       const jsonldId = uid(10)
 
@@ -63,13 +68,15 @@ export default function createMixin(Vue, options) {
           updateType(
             $root._jsonld.data,
             jsonldId,
-            this[computedName]
+            this[computedName],
+            isServer
           )
           this.$watch(computedName, function (value) {
             updateType(
               $root._jsonld.data,
               jsonldId,
-              value
+              value,
+              isServer
             )
           })
         })
@@ -77,7 +84,8 @@ export default function createMixin(Vue, options) {
         ensuredPush(this.$options, 'destroyed', () => {
           removeType(
             $root._jsonld.data,
-            jsonldId
+            jsonldId,
+            isServer
           )
         })
       }

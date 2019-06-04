@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{ $jsonld }}</p>
+    <p>{{ $jsonldInfo }}</p>
   </div>
 </template>
 

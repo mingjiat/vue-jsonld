@@ -4,8 +4,9 @@
     <p>
       hello {{title}}
     </p>
-    <button @click="changeTitle"> chang title</button>
-    <p>{{$jsonld}}</p>
+    <button @click="changeTitle">chang title</button>
+    <button @click="test">test</button>
+    <p>{{$jsonldInfo}}</p>
     <component1 />
     <hr/>
     <button @click="toggleComponent">toggle component2</button>
@@ -34,6 +35,9 @@
       },
       toggleComponent() {
         this.shouldShowComponent2 = !this.shouldShowComponent2
+      },
+      test() {
+        console.log(this.$jsonld().text())
       }
     },
     jsonld() {

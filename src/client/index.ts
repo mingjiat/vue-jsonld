@@ -1,31 +1,24 @@
 import {isArray} from "../utils/is";
+import { FEATURE_ATTRIBUTE, TAG, ID_ATTRIBUTE, ATTRIBUTE } from "../constant";
 
 function getTag(tag) {
   return  document.getElementsByTagName(tag)[0]
 }
 
-const attribute = 'data-vue-jsonld'
-const idAttribute = 'data-jsonld-id'
-const elementType = 'script'
-const elementAttribute = {
-  key: 'type',
-  value: 'application/ld+json',
-}
-
 function createScriptTag(id, data) {
-  const newElement = document.createElement(elementType);
-  newElement.setAttribute(attribute, 'true')
-  newElement.setAttribute(idAttribute, id);
-  newElement.setAttribute('type', 'application/ld+json')
+  const newElement = document.createElement(TAG);
+  newElement.setAttribute(FEATURE_ATTRIBUTE, 'true')
+  newElement.setAttribute(ID_ATTRIBUTE, id);
+  newElement.setAttribute(ATTRIBUTE.key, ATTRIBUTE.value)
   newElement.innerHTML = JSON.stringify(data, null, 4)
   return newElement;
 }
 
+const selector = `${TAG}[${ATTRIBUTE.key}="${ATTRIBUTE.value}"][${FEATURE_ATTRIBUTE}]`
+
 export const triggerHeadUpdate = (list: RowData[]) => {
   const headTag: HTMLHeadElement = getTag('head')
-  const oldHeadTags: Element[] = Array.from(headTag.querySelectorAll(
-    `${elementType}[${elementAttribute.key}="${elementAttribute.value}"][${attribute}]`
-  ))
+  const oldHeadTags: Element[] = Array.from(headTag.querySelectorAll(selector))
 
   const newTags = list.reduce((prev, type) => {
     if(isArray(type.data)) {
